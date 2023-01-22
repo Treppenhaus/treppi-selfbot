@@ -9,4 +9,7 @@ disocrd selfbot that
 
 
 install this library: https://discordjs-self-v13.netlify.app/#/
+
+
+
 npm install discord.js-selfbot-v13
