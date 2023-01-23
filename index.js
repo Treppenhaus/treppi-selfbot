@@ -8,17 +8,22 @@ const client = new Client({
 client.on('ready', async () => {
   console.log(`${client.user.username} is ready!`);
   loop = () => {
-    setTimeout(function () {
-        console.log("checking friend requests...")
-        client.relationships.incomingCache.forEach((user) => {
-            user.setFriend()
-            let date = new Date()
-            user.setNote("auto accepted at "+new Date(new Date()).toISOString());
-            user.dmChannel
-                .send("hi, how can i help you?")
-                .then(msg => console.log("sent message to "+user.username+"#"+user.discriminator))
-                .catch(console.error);
-          })
+    setTimeout(() => {
+        try {
+          console.log("checking friend requests...")
+          client.relationships.incomingCache.forEach((user) => {
+              user.setFriend();
+              user.setNote("auto accepted at "+new Date(new Date()).toISOString());
+              setTimeout(() => {
+                user.dmChannel
+                    .send("hi, this message is sent automatically upon accepting your friend request!")
+                    .then(msg => console.log("sent message to "+user.username+"#"+user.discriminator))
+                    .catch(console.error);
+              }, 2000);
+            })
+        } catch(error) {
+          console.log(error)
+        }
       loop()
     }, 1000*17);
   };
